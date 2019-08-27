@@ -1,0 +1,94 @@
+#app
+server:
+  port: 8080
+  servlet:
+    context-path: /AdvertMonitor
+#spring
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 100MB
+  devtools:
+    restart:
+      enabled: true
+
+  # DATABASE CONFIG
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://192.168.0.118:3306/advert_monitor?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&allowMultiQueries=true
+      username: root
+      password: root
+      stat-view-servlet:
+        loginUsername: admin
+        loginPassword: pingansec@bj
+      initialSize: 5                                 #初始化连接大小
+      minIdle: 5                                     #最小连接池数量
+      maxActive: 20                                  #最大连接池数量
+      maxWait: 60000                                 #获取连接时最大等待时间，单位毫秒
+      timeBetweenEvictionRunsMillis: 60000           #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      minEvictableIdleTimeMillis: 300000             #配置一个连接在池中最小生存的时间，单位是毫秒
+      validationQuery: SELECT 1 FROM DUAL            #测试连接
+      testWhileIdle: true                            #申请连接的时候检测，建议配置为true，不影响性能，并且保证安全性
+      testOnBorrow: false                            #获取连接时执行检测，建议关闭，影响性能
+      testOnReturn: false                            #归还连接时执行检测，建议关闭，影响性能
+      poolPreparedStatements: false                  #是否开启PSCache，PSCache对支持游标的数据库性能提升巨大，oracle建议开启，mysql下建议关闭
+      maxPoolPreparedStatementPerConnectionSize: 20  #开启poolPreparedStatements后生效
+      filters: stat,wall                             #配置扩展插件，常用的插件有=>stat:监控统计  log4j:日志  wall:防御sql注入
+      filter:
+        wall:
+          enabled: true
+          config:
+            multiStatementAllow: true                #允许多条sql一起执行,是为了自己上传originData的时候能批量执行insert sql
+      connectionProperties: 'druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000'  #通过connectProperties属性来打开mergeSql功能;慢SQL记录
+
+mybatis-plus:
+  mapper-locations: classpath:mapping/**/*.xml
+  typeAliasesPackage: utn.aic.pojo.entity.**
+  global-config:
+    # 数据库相关配置
+    db-config:
+      #主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+      id-type: auto
+      #字段策略 IGNORED:"忽略判断",NOT_NULL:"非 NULL 判断"),NOT_EMPTY:"非空判断" 这个属性很重要，如果每次都是更新然后修改的话，可以直接使用IGNORED
+      field-strategy: NOT_NULL
+      #驼峰下划线转换
+      column-underline: true
+      #数据库大写下划线转换
+      #capital-mode: true
+      #逻辑删除配置
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+    #      db-type: h2
+    #刷新mapper 调试神器
+    refresh: true
+  # 原生配置
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+ad:
+  topOrgId: 1 # 顶级单位id
+  defaultPwd: 1111@aaaa # 用户默认密码
+  showFavoriteNum: 5 # 个人设置法规置顶的最大数量
+  favoriteCategory: 10 # 个人设置常用商品服务类别
+  domain: http://localhost:8080/AdvertMonitor/ # 项目地址
+  mediaDoc: mediaDoc.xls_互联网媒体监测名单.xls #供下载的媒体列表
+  operateDoc: operateDoc.doc_互联网广告监测数据运行平台培训手册.doc #供下载的操作手册
+  monitorPlugin: monitorPlugin-v3.0.crx_monitorPlugin-v3.0.crx # 供下载的插件
+  savePath: D:/SpringToolSuite4/ADMonitor/src/main/resources/static/ #报表保存目录
+  evidencePath: upload/ #证据保存目录
+  reportPath: upload/report/ #报表保存目录
+  casePath: upload/case/ #立案保存目录
+  dataPath: upload/dataImport/ #自己上传数据sql目录
+  responseAttach: upload/responseAttach/ #报表保存目录
+  batchPageSize: 2000 #导出数据时分批次获取
+  systemVersion: 1 #项目版本，0代表测试 ，1代表正式
+  createFolderPeriod: 15 #定时器提前创建文件夹 区间【0-100】
+  pname: AdvertDataReceive #接入参数-账号
+  acceptKey: 93f4b5ab34f32b86b2e2a9fb1403f02b #接入参数-密码
+  inspectoptKey: 5vU36IpJ%R8dn#Nx
+  inspectoptUrl: http://trunk.admonitor.e.360.cn/tool/inspectopt
+  showsql: true
