@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <script src="jquery/jquery-1.11.2.js"></script>
+
+    <style>
+        body{font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif, 宋体;}
+        .qx-contain{position: absolute;top:22%;width: 480px;left: 50%;margin-left: -240px;}
+        .qx-contain p{text-align: center;font-size: 30px;color: #999;}
+        .qx-contain img{display: block;max-width: 100%;margin: 0 auto;}
+    </style>
+</head>
+
+<body>
+
+    <div class="lg_item">
+        <input id="userName" name="userName" type="text"  placeholder="用户名">
+    </div>
+    <div class="lg_item">
+        <input id="password" name="password" type="password"  placeholder="密码">
+    </div>
+    <div class="lg_item lg_item_vali" style="margin-bottom:0px;">
+        <input type="text" id="KaptchaCode" name="KaptchaCode"  placeholder="验证码">
+        <div class="lg_validation" style="overflow:hidden;border:0;"> <img id="kaptcha" src="" onclick="nextKaptcha();" style="border:none;" alt="验证码"/></div>
+    </div>
+    <button value="登录" id="login-btn">登录按钮</button>
+    <input type="submit" value="登录提交">
+
+</body>
+
+<script type="text/javascript">
+    function nextKaptcha(){
+        var img = document.getElementById("kaptcha");
+        img.setAttribute("src", "static/kaptcha?" + Math.random());
+    }
+    $(function(){
+        nextKaptcha();
+
+        $("#login-btn").on('click', function(event) {
+            //获取用户名称
+            var userName = encodeURI($("#userName").val());
+            //获取输入密码
+            var password = encodeURI($("#password").val());
+            //获取验证码
+            var kaptcha = encodeURI($("#KaptchaCode").val());
+            //开始发送数据
+            $.ajax({ //请求登录处理页
+                url: "user/login",
+                //dataType: "application/x-www-form-urlencoded",
+                //dataType: 'application/json;charset=utf-8',
+                type: 'post',
+                //传送请求数据
+                //data: {'userName': userName, 'password': password, 'vcode': kaptcha},
+                data: {'username': userName, 'password': password, 'vcode': kaptcha},
+                success: function (callbackdata, status, xhr) { //登录成功后返回的数据
+                    /* console.log(callbackdata); */
+                    alert(callbackdata);
+                },
+                error: function (xhr, status, error) {
+                    /* alert('错误' + status);
+                    alert(error); */
+                    console.log(xhr)
+                }
+            });
+        });
+
+    });
+
+</script>
+</html>

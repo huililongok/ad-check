@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ad.home.dao.mapper.dic.BlocklistDicMapper" >
+    <resultMap id="BaseResultMap" type="ad.home.pojo.dbentity.BlocklistDicEntity" >
+        <id column="dic_id" property="dicId" jdbcType="INTEGER" />
+        <result column="dic_words" property="dicWords" jdbcType="VARCHAR" />
+        <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+        <result column="dic_level" property="dicLevel" jdbcType="INTEGER" />
+        <result column="dic_status" property="dicStatus" jdbcType="INTEGER" />
+        <result column="dic_desc" property="dicDesc" jdbcType="VARCHAR" />
+        <result column="dic_source" property="dicSource" jdbcType="INTEGER" />
+        <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="select-param-column">
+		dic_id, dic_words, category_id, dic_level, dic_status, dic_desc, dic_source, create_user_id, create_time, update_time
+	</sql>
+</mapper>

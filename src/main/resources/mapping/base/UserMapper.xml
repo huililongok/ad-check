@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ad.home.dao.mapper.base.UserMapper">
+    <resultMap type="ad.home.pojo.dbentity.UserEntity" id="userEntity">
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="user_real_name" jdbcType="VARCHAR" property="userRealName"/>
+        <result column="user_phone" jdbcType="VARCHAR" property="userPhone"/>
+        <result column="user_email" jdbcType="VARCHAR" property="userEmail"/>
+        <result column="is_truename_verify" jdbcType="INTEGER" property="isTruenameVerify"/>
+        <result column="chat_head_icon" jdbcType="VARCHAR" property="chatHeadIcon"/>
+        <result column="signature" jdbcType="VARCHAR" property="signature"/>
+        <result column="user_status" jdbcType="INTEGER" property="userStatus"/>
+        <result column="is_admin" jdbcType="INTEGER" property="isAdmin"/>
+        <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="select-param-column">
+		user_id,user_name,password,user_real_name,user_phone,user_email,is_truename_verify,chat_head_icon,signature,user_status,is_admin,last_login_time,create_time,update_time
+	</sql>
+    <!-- 根据用户名查询用户信息 -->
+    <select id="queryUserByName" parameterType="String" resultMap="userEntity">
+        SELECT
+        <include refid="select-param-column" />
+        FROM tb_user
+        WHERE user_name=#{userName, jdbcType=VARCHAR}
+    </select>
+
+    <!-- 条件分页查询用户信息 -->
+    <select id="getUserByConditionPage" resultMap="userEntity">
+        SELECT
+        <include refid="select-param-column" />
+        FROM
+        tb_user
+        <where>
+            <if test="params.userName != null">
+                AND user_name LIKE CONCAT('%',CONCAT(#{params.userName},'%'))
+            </if>
+            <if test="params.userPhone != null">
+                AND user_phone LIKE CONCAT('%',CONCAT(#{params.userPhone},'%'))
+            </if>
+            <if test="params.userEmail != null">
+                AND user_email LIKE CONCAT('%',CONCAT(#{params.userEmail},'%'))
+            </if>
+            <if test="params.isTruenameVerify != null">
+                AND is_truename_verify = #{params.isTruenameVerify}
+            </if>
+            <if test="params.userStatus != null">
+                AND user_status = #{params.userStatus}
+            </if>
+            <if test="params.isAdmin != null">
+                AND is_admin != #{params.isAdmin}
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据用户ID唯一查询用户信息 -->
+    <select id="getUserbyUserId" parameterType="int" resultType="userEntity">
+	  	SELECT
+        <include refid="select-param-column" />
+	  	FROM tb_user where user_id = #{userId}
+	</select>
+
+</mapper>

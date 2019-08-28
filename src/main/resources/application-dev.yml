@@ -2,7 +2,7 @@
 server:
   port: 8080
   servlet:
-    context-path: /AdvertMonitor
+    context-path: /ad-check
 #spring
 spring:
   servlet:
@@ -18,12 +18,12 @@ spring:
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://192.168.0.118:3306/advert_monitor?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&allowMultiQueries=true
+      url: jdbc:mysql://127.0.0.1:3306/ad-check?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&allowMultiQueries=true
       username: root
-      password: root
+      password: root_lyon
       stat-view-servlet:
         loginUsername: admin
-        loginPassword: pingansec@bj
+        loginPassword: admin
       initialSize: 5                                 #初始化连接大小
       minIdle: 5                                     #最小连接池数量
       maxActive: 20                                  #最大连接池数量
@@ -46,7 +46,7 @@ spring:
 
 mybatis-plus:
   mapper-locations: classpath:mapping/**/*.xml
-  typeAliasesPackage: utn.aic.pojo.entity.**
+  typeAliasesPackage: ad.home.pojo.**
   global-config:
     # 数据库相关配置
     db-config:
@@ -68,27 +68,3 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
-
-ad:
-  topOrgId: 1 # 顶级单位id
-  defaultPwd: 1111@aaaa # 用户默认密码
-  showFavoriteNum: 5 # 个人设置法规置顶的最大数量
-  favoriteCategory: 10 # 个人设置常用商品服务类别
-  domain: http://localhost:8080/AdvertMonitor/ # 项目地址
-  mediaDoc: mediaDoc.xls_互联网媒体监测名单.xls #供下载的媒体列表
-  operateDoc: operateDoc.doc_互联网广告监测数据运行平台培训手册.doc #供下载的操作手册
-  monitorPlugin: monitorPlugin-v3.0.crx_monitorPlugin-v3.0.crx # 供下载的插件
-  savePath: D:/SpringToolSuite4/ADMonitor/src/main/resources/static/ #报表保存目录
-  evidencePath: upload/ #证据保存目录
-  reportPath: upload/report/ #报表保存目录
-  casePath: upload/case/ #立案保存目录
-  dataPath: upload/dataImport/ #自己上传数据sql目录
-  responseAttach: upload/responseAttach/ #报表保存目录
-  batchPageSize: 2000 #导出数据时分批次获取
-  systemVersion: 1 #项目版本，0代表测试 ，1代表正式
-  createFolderPeriod: 15 #定时器提前创建文件夹 区间【0-100】
-  pname: AdvertDataReceive #接入参数-账号
-  acceptKey: 93f4b5ab34f32b86b2e2a9fb1403f02b #接入参数-密码
-  inspectoptKey: 5vU36IpJ%R8dn#Nx
-  inspectoptUrl: http://trunk.admonitor.e.360.cn/tool/inspectopt
-  showsql: true

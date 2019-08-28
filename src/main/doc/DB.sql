@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS tb_user;
 CREATE TABLE tb_user(
   user_id INT(8) DEFAULT NULL comment '主键自增',
   user_name varchar(64) DEFAULT NULL comment '用户名称',
-  user_pwd varchar(128) DEFAULT NULL comment '密码',
+  password varchar(128) DEFAULT NULL comment '密码',
   user_real_name varchar(64) DEFAULT NULL comment '真实姓名',
   user_phone varchar(21) DEFAULT NULL comment '手机号',
   user_email varchar(64) DEFAULT NULL comment '邮箱',
@@ -43,6 +43,7 @@ DROP TABLE IF EXISTS tb_sys_role;
 CREATE TABLE tb_sys_role(
   role_id INT(8) DEFAULT NULL comment '主键自增',
   role_name varchar(128) DEFAULT NULL comment '角色名称',
+  role_en_name varchar(64) DEFAULT NULL comment '英文别名',
   role_status INT(4) DEFAULT NULL comment '状态；1：正常；0：弃用',
   role_desc varchar(255) DEFAULT NULL comment '描述',
   create_user_id INT(8) DEFAULT NULL comment '创建人',

@@ -1,146 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-        <title>北京市互联网广告数据运行平台</title>
-        <meta name="renderer" content="webkit">
-	    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-	    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    	<link rel="stylesheet" href="css/login.css">
-	</head>
-	<body>
-	<div class="htmleaf-container">
-	    <div class="login_downlaod"><i class="iconfont icon-download"></i><a href="./download/monitorPlugin">下载插件</a></div>
-		<div class="wrapper">
-			<div class="container">
-				<h2 id="content">北京市互联网广告数据运行平台</h2>
-				<form class="form">
-					<ul>
-						<li>
-							<input name="name" type="text" placeholder="用户名" id="loginUserName">
-						</li>
-						<li>
-							<input name="pwd" type="password" placeholder="密码">
-						</li>
-			            <li class="ele_val">
-							<input type="text" name="kaptcha" placeholder="验证码" autocomplete="off">
-							<div class="_val"><img id="kaptcha" src="" onclick="nextKaptcha();" width="99" height="40"  alt="验证码"/></div>
-						</li>
-						<li id="errorInfo" class="ele_form ele_tip tip_error"></li>
-						<button type="submit" id="login-button">登录</button>
-						<!--<li class="ele_form ele_submit">
-							<input type="submit" value="登录"><br>
-						</li>-->
-					</ul>
-				</form>
-			</div>	
-		</div>
-	    <ul class="bg-bubbles">
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-		</ul>
-	</div>
-	  		
-	<script type="text/javascript" src="lib/jquery/jquery-1.11.1.js"></script>
-	<script src="lib/particles.js"></script>
-	<script src="js/angular/init.js" type="text/javascript"></script>	
-	<script>
-		$(function(){
-			
-			nextKaptcha();
-			getSystemMess();
-			// 获取系统版本
-			function getSystemMess(){
-				$.ajax({
-		    		  url:  basePath + "version/system",
-		    		  method: "GET",
-		    		  dataType: "json",
-		    		  xhrFields: {  withCredentials: true },
-                      crossDomain: true,
-		    		  success:function(data){
-		    			  if(data&&data.statusCode == 1){
-		    			  	 var jsons =  JSON.stringify(data);
-		    			  	 window.localStorage.setItem("systemVersion",jsons);
-		    			  	 if(data.data == 0) {
-		    			  	 	var mess = '测试平台';
-		    			  	 }else {
-		    			  	 	var mess = '北京市互联网广告数据运行平台';
-		    			  	 }
-		    			  	 document.title = mess;
-		    			  	 $("#content").text(mess);
-		    			  } else {
-		    			  	$("#errorInfo").html(data.statusMessage);
-		    			  }
-		    		  }
-		    	});
-			}
-//			// 设置获取焦点
-//			$("#loginUserName").focus();
-			
-		    $("form").submit(function(event){		    	
-		    	event.preventDefault();
-		    	var data = {};
-		    	data.username = $('input[name=name]').val().trim(),
-		    	data.password = $('input[name=pwd]').val().trim();
-		    	data.kaptcha = $('input[name=kaptcha]').val().trim();
-		    	if(data.name =="" || data.pwd ==""){
-		    	    $("#errorInfo").html("请您输入登录名称或者密码");
-		    	    return false;
-		    	}else if(data.kaptcha ==""){
-		    	    $("#errorInfo").html("您输入的验证码错误!");
-		    	    $('input[name=kaptcha]').focus();
-		    	     return false;
-		    	}
-		    	
-		        $.ajax({
-		    		  url:  basePath + "user/login",
-		    		  method: "POST",
-		    		  data:data,
-		    		  dataType: "json",
-		    		  xhrFields: {  withCredentials: true },
-                      crossDomain: true,
-		    		  success:function(data){
-		    			  if(data&&data.statusCode == 1){
-		    			  	 var jsons =  JSON.stringify(data);
-		    			  	 window.localStorage.setItem("roleBeiJing",jsons);
-		    			  	 if(data.data.roleId == 4){
-		    			  		window.location.href = "main.html#/mediaIndex"
-		    			  	 }else{
-		    			  		window.location.href = "main.html"
-		    			  	 }
-		    			  	
-		    			  } else {
-		    			  	$("#errorInfo").html(data.statusMessage);
-   	    			     	nextKaptcha();
-		    			  }
-		    		  }
-		    	});	    	
-		    })
-		
-			$("input[name='kaptcha']").focus(function(){
-		    	    $(".ele_val").addClass("active");
-		    })
-		    
-		    $("body").click(function(e){
-		         if($(e.target).closest(".ele_val").length !=1 &&  $(".ele_val").hasClass("active")){
-		         	  $(".ele_val").removeClass("active");
-		         }
-		    })
-		
-		});
-			
-		function nextKaptcha(){
-			var img = document.getElementById("kaptcha");
-			img.setAttribute("src",  basePath + "kaptcha/get?"+Math.random());
-		}
-	</script>
-	</body>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>文件管理-首页</title>
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <script src="jquery/jquery-1.11.2.js"></script>
+
+</head>
+
+<body>
+<a href="login.html">登录</a>
+</body>
+
+<script type="text/javascript">
+
+</script>
 </html>
