@@ -31,6 +31,7 @@ public class AjaxAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
         UserEntity user = SessionResolve.getInstance().getSecuritySessionUser();
+        user.setPassword(null);
         log.info("登录成功-用户为：" + user.getUserName());
         // 这里只返回了对象，还可以设置角色、权限等
         ResultInfo<Object> resultInfo = ResultInfo.getSuccessResult("登录成功", user);

@@ -1,4 +1,4 @@
-package ad.home.service;
+package ad.home.service.base;
 
 import org.springframework.stereotype.Service;
 

@@ -40,7 +40,7 @@
 <script type="text/javascript">
     function nextKaptcha(){
         var img = document.getElementById("kaptcha");
-        img.setAttribute("src", "static/kaptcha?" + Math.random());
+        img.setAttribute("src", "kaptcha/get?" + Math.random());
     }
     $(function(){
         nextKaptcha();
@@ -54,7 +54,7 @@
             var kaptcha = encodeURI($("#KaptchaCode").val());
             //开始发送数据
             $.ajax({ //请求登录处理页
-                url: "user/login",
+                url: "user/sign/in",
                 //dataType: "application/x-www-form-urlencoded",
                 //dataType: 'application/json;charset=utf-8',
                 type: 'post',
