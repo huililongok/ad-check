@@ -80,4 +80,36 @@ public class ResultInfo <T> implements Serializable {
         return resultInfo;
     }
 
+    public void getSelfSuccessResult(String msg, T data) {
+        this.setStatusCode(ErrorStatus.SUCCESS.getValue());
+        this.setMessage(StringUtils.isNotBlank(msg) ? msg : ErrorStatus.SUCCESS.getName());
+        this.setData(data);
+    }
+
+    public void getSelfSuccessResult(String msg) {
+        this.setStatusCode(ErrorStatus.SUCCESS.getValue());
+        this.setMessage(StringUtils.isNotBlank(msg) ? msg : ErrorStatus.SUCCESS.getName());
+    }
+
+    public void getSelfSuccessResult() {
+        this.setStatusCode(ErrorStatus.SUCCESS.getValue());
+        this.setMessage(ErrorStatus.SUCCESS.getName());
+    }
+
+    public void getSelfFailResult(String msg, T data) {
+        this.setStatusCode(ErrorStatus.FAIL.getValue());
+        this.setMessage(StringUtils.isNotBlank(msg) ? msg : ErrorStatus.FAIL.getName());
+        this.setData(data);
+    }
+
+    public void getSelfFailResult(String msg) {
+        this.setStatusCode(ErrorStatus.FAIL.getValue());
+        this.setMessage(StringUtils.isNotBlank(msg) ? msg : ErrorStatus.FAIL.getName());
+    }
+
+    public void getSelfFailResult() {
+        this.setStatusCode(ErrorStatus.FAIL.getValue());
+        this.setMessage(ErrorStatus.FAIL.getName());
+    }
+
 }
