@@ -21,10 +21,10 @@ public class LoginValidateCodeFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         String requestURI = request.getRequestURI();
-        System.out.println(requestURI);
         String expect = (String) request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
 
         String kaptcha = request.getParameter("vcode");
+        System.out.println("来自：" + requestURI + "，接收到验证码：" + (kaptcha == null ? "" : kaptcha));
         if (expect == null || StringUtils.isBlank(kaptcha)) {
             InsufficientAuthenticationException ext = new InsufficientAuthenticationException("验证码为空！");
             throw ext;

@@ -29,19 +29,19 @@
                 AND dic_words LIKE CONCAT('%',CONCAT(#{params.dicWords},'%'))
             </if>
             <if test="params.categoryId != null">
-                AND category_id = {params.categoryId}
+                AND category_id = #{params.categoryId}
             </if>
             <if test="params.dicLevel != null">
-                AND dic_level = {params.dicLevel}
+                AND dic_level = #{params.dicLevel}
             </if>
             <if test="params.dicStatus != null">
-                AND dic_status = {params.dicStatus}
+                AND dic_status = #{params.dicStatus}
             </if>
             <if test="params.dicSource != null">
-                AND dic_source = {params.dicSource}
+                AND dic_source = #{params.dicSource}
             </if>
             <if test="params.createUserId != null">
-                AND create_user_id = {params.createUserId}
+                AND create_user_id = #{params.createUserId}
             </if>
         </where>
     </select>

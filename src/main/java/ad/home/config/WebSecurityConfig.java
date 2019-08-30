@@ -110,7 +110,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                    "/js/**",
                    "/jquery/**",
                    "/lib/**",
-                   "/kaptcha/get"
+                   "/kaptcha/get",
+                   "/adword/**"
 
            );
     }

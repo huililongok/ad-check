@@ -12,4 +12,7 @@ public class AdCheckApplication {
         SpringApplication.run(AdCheckApplication.class, args);
     }
 
+
+
 }
+
