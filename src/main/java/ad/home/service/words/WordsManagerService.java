@@ -53,9 +53,16 @@ public class WordsManagerService {
             totleSize += addWordDataToMem(blocklistDicEntityPageInfo, cate);
 
             // 如果大于1页继续查询
-            if (blocklistDicEntityPageInfo.getTotalPage() > blocklistDicEntityPageInfo.getCurrent()) {
-                for (long pageIndex = blocklistDicEntityPageInfo.getCurrent(); pageIndex <= blocklistDicEntityPageInfo.getTotalPage(); pageIndex++) {
+            long pageCount = 0;
+            if (blocklistDicEntityPageInfo.getTotal() % WordsFixedProperty.DEFAULT_LOAD_PAGESIZE.getValue() != 0) {
+                pageCount = blocklistDicEntityPageInfo.getTotal() / WordsFixedProperty.DEFAULT_LOAD_PAGESIZE.getValue();
+            } else {
+                pageCount = (blocklistDicEntityPageInfo.getTotal() / WordsFixedProperty.DEFAULT_LOAD_PAGESIZE.getValue()) + 1;
+            }
+            if (pageCount > 1) {
+                for (long pageIndex = blocklistDicEntityPageInfo.getCurrent(); pageIndex <= pageCount; pageIndex++) {
                     blocklistDicEntityPageInfo.setPageNo(pageIndex);
+                    blocklistDicEntityPageInfo.setCurrent(pageIndex);
                     blocklistDicEntityPageInfo = blocklistDicService.loadBlocklistDicForPage(parameter);
                     totleSize += addWordDataToMem(blocklistDicEntityPageInfo, cate);
                 }
