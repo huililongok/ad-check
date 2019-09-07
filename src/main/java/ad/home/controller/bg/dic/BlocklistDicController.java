@@ -1,4 +1,4 @@
-package ad.home.controller.dic;
+package ad.home.controller.bg.dic;
 
 import ad.home.common.vo.ResultInfo;
 import ad.home.pojo.appentity.PageInfo;
@@ -7,7 +7,6 @@ import ad.home.pojo.dbentity.UserEntity;
 import ad.home.service.dic.BlocklistDicService;
 import ad.home.web.solve.SessionResolve;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.PortableInterceptor.RequestInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +20,7 @@ import java.util.Map;
  * 黑词处理
  */
 @RestController
-@RequestMapping(value = "/bdic")
+@RequestMapping(value = "/b/dic")
 public class BlocklistDicController {
 
     @Autowired

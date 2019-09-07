@@ -142,3 +142,63 @@ CREATE TABLE tb_sys_logs(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ALTER TABLE tb_sys_logs ADD CONSTRAINT PK_tb_sys_logs_logs_id PRIMARY KEY (logs_id);
 ALTER TABLE tb_sys_logs CHANGE logs_id logs_id INT(8) NOT NULL AUTO_INCREMENT;
+
+-- 法规表 - 法规文件
+DROP TABLE IF EXISTS `tb_legislation`;
+CREATE TABLE `tb_legislation` (
+  `legislation_id` INT(8) NOT NULL comment '主键自增',
+  `legislation_status` smallint(6) DEFAULT NULL comment '状态：1：使用中；0：已废除；-1：已删除',
+  `legislation_type` smallint(6) DEFAULT NULL comment '法规类型：1：广告',
+  `legislation_orderby` smallint(6) DEFAULT '0' comment '显示顺序',
+  `legislation_name` varchar(255) DEFAULT NULL comment '总则名称',
+  `create_user_id` INT(8) DEFAULT NULL comment '创建人',
+  `create_time` datetime DEFAULT NULL comment '创建时间',
+  `update_time` datetime DEFAULT NULL comment '最后修改时间',
+  `remark` varchar(200) DEFAULT ''  comment '相关标书',
+  `command_number` varchar(255) DEFAULT NULL  comment '法令编号',
+  `release_authority` varchar(255) DEFAULT NULL comment '发布机关单位',
+  `legislation_content` longtext comment '内从',
+  `publish_time` datetime DEFAULT NULL comment '发布时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE tb_legislation ADD CONSTRAINT PK_tb_legislation_legislation_id PRIMARY KEY (legislation_id);
+ALTER TABLE tb_legislation CHANGE legislation_id legislation_id INT(8) NOT NULL AUTO_INCREMENT;
+
+-- 法规理解
+DROP TABLE IF EXISTS `tb_regulation`;
+CREATE TABLE `tb_regulation` (
+  `regulation_id` INT(8) NOT NULL comment '主键自增',
+  `regulation_type_id` int(4) DEFAULT NULL COMMENT '法规类型id外键',
+  `illegal_type` varchar(128) DEFAULT NULL COMMENT '违规类型',
+  `illegal_behavior` varchar(255) DEFAULT NULL COMMENT '违规行为表现',
+  `illegal_dependence` varchar(255) DEFAULT NULL COMMENT '违规认定依据',
+  `illegal_supervise` varchar(255) DEFAULT NULL COMMENT '处罚依据与监管措施',
+  `illegal_reference` varchar(255) DEFAULT NULL COMMENT '参考依据',
+  `illegal_example` varchar(255) DEFAULT NULL COMMENT '示例说明',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_user_id` int(8) DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_user_id` int(8) DEFAULT NULL COMMENT '修改人',
+  `illegal_property` int(4) DEFAULT NULL COMMENT '违法性质 (0,轻微 1,一般 2,严重)',
+  `country_code` varchar(64) DEFAULT NULL COMMENT '国家局代码',
+  `illegal_status` int(11) DEFAULT NULL COMMENT '是否可用 1，可用 2，不可用'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE tb_regulation ADD CONSTRAINT PK_tb_regulation_regulation_id PRIMARY KEY (regulation_id);
+ALTER TABLE tb_regulation CHANGE regulation_id regulation_id INT(8) NOT NULL AUTO_INCREMENT;
+
+-- 法规理解类型
+DROP TABLE IF EXISTS `tb_regulation_type`;
+CREATE TABLE `tb_regulation_type` (
+  `rt_id` INT(8) NOT NULL comment '主键自增',
+  `rt_name` varchar(64) DEFAULT NULL COMMENT '法规类型名称',
+  `rt_level` int(8) DEFAULT '1' COMMENT '法规类型等级',
+  `rt_parent_id` int(8) DEFAULT '0' COMMENT '父法规类型id',
+  `rt_status` int(8) DEFAULT '0' COMMENT '0 可用 ，1禁用',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_user_id` int(8) DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE tb_regulation_type ADD CONSTRAINT PK_tb_regulation_type_rt_id PRIMARY KEY (rt_id);
+ALTER TABLE tb_regulation_type CHANGE rt_id rt_id INT(8) NOT NULL AUTO_INCREMENT;
+
+
+

@@ -1,4 +1,4 @@
-package ad.home.controller.dic;
+package ad.home.controller.client;
 
 import ad.home.common.vo.ResultInfo;
 import ad.home.service.dic.AdvertContentCheckService;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Set;
 
 /**
- * 词语检查过滤
+ * 客户端-词语检查过滤
  */
 @RestController
-@RequestMapping(value = "/adword")
+@RequestMapping(value = "/c/adword")
 public class WordsCheckController {
     @Autowired
     private AdvertContentCheckService advertContentCheckService;
