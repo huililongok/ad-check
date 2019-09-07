@@ -47,6 +47,8 @@ public class BlocklistDicController {
         return result;
     }
 
+    //public ResultInfo<BlocklistDicEntity> userBatchAddBlocklistDic()
+
     /**
      * 删除 - 必须具有删除权限
      * @param idList
@@ -70,7 +72,7 @@ public class BlocklistDicController {
      */
     @RequestMapping(value = "/r/page", method = {RequestMethod.GET})
     public ResultInfo<PageInfo<BlocklistDicEntity>> pageQueryBlocklistWords(PageInfo<BlocklistDicEntity> pageInfo, Map<String, Object> parameter) {
-        pageInfo = blocklistDicService.loadBlocklistDicForPage(parameter);
+        pageInfo = blocklistDicService.loadBlocklistDicForPage(pageInfo, parameter);
         ResultInfo<PageInfo<BlocklistDicEntity>> result = ResultInfo.getSuccessResult("OK", pageInfo);
         return result;
     }

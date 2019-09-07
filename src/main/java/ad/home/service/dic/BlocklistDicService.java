@@ -21,8 +21,7 @@ public class BlocklistDicService {
      * @param params
      * @return
      */
-    public PageInfo<BlocklistDicEntity> loadBlocklistDicForPage(Map<String, Object> params) {
-        PageInfo<BlocklistDicEntity> pageInfo = new PageInfo<>();
+    public PageInfo<BlocklistDicEntity> loadBlocklistDicForPage(PageInfo<BlocklistDicEntity> pageInfo, Map<String, Object> params) {
         blocklistDicMapper.getDicByConditionPage(pageInfo, params);
         return pageInfo;
     }

@@ -76,6 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/user/sign/out-succ")
                 .deleteCookies("JSESSIONID")
                 .permitAll()
+                .and().sessionManagement().invalidSessionUrl("/user/sign/invalid")
                 .and()
                 .csrf()
                 .disable();
@@ -110,8 +111,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                    "/js/**",
                    "/jquery/**",
                    "/lib/**",
-                   "/kaptcha/get",
-                   "/adword/**"
+                   "/kaptcha/get"
 
            );
     }

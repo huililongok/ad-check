@@ -15,7 +15,7 @@ public class ResultInfo <T> implements Serializable {
      */
     private static final long serialVersionUID = -9003955719801331996L;
 
-    // 状态编码 0：成功；2：失败
+    // 状态编码 1：成功；2：失败
     private int statusCode;
     // 成功后返回内容
     private T data;

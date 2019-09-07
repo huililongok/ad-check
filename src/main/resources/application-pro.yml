@@ -1,10 +1,8 @@
 #app
 server:
-  port: 8080
+  port: 29001
   servlet:
     context-path: /ad-check
-    session:
-      timeout: 60000
 #spring
 spring:
   servlet:
@@ -20,9 +18,9 @@ spring:
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/ad-check?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&allowMultiQueries=true
-      username: root
-      password: root_lyon
+      url: jdbc:mysql://10.1.100.73:3306/ad_check?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&allowMultiQueries=true
+      username: home
+      password: home_123
       stat-view-servlet:
         loginUsername: admin
         loginPassword: admin

@@ -33,7 +33,7 @@ public class WordsCheckController {
         ResultInfo<Set<String>> result = ResultInfo.getFailResult("参数错误");
         if (StringUtils.isNotBlank(adContent) && categoryId != null && categoryId.intValue() > 0) {
             Set<String> set = advertContentCheckService.wordsCheckAdvertContent(adContent, categoryId);
-            result.getSelfFailResult("OK", set);
+            result.getSelfSuccessResult("OK", set);
         }
         return result;
     }

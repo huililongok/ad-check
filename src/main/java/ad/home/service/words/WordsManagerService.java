@@ -47,23 +47,23 @@ public class WordsManagerService {
             Map<String, Object> parameter = new HashMap<>();
             parameter.put("categoryId", cate);
             parameter.put("dicStatus", BlocklistDicFixedProperty.STATUS_OK.getValue());
-            blocklistDicEntityPageInfo = blocklistDicService.loadBlocklistDicForPage(parameter);
+            blocklistDicEntityPageInfo = blocklistDicService.loadBlocklistDicForPage(blocklistDicEntityPageInfo, parameter);
             // 具有数据，分页查询
             int totleSize = 0;
             totleSize += addWordDataToMem(blocklistDicEntityPageInfo, cate);
 
             // 如果大于1页继续查询
             long pageCount = 0;
-            if (blocklistDicEntityPageInfo.getTotal() % WordsFixedProperty.DEFAULT_LOAD_PAGESIZE.getValue() != 0) {
+            if (blocklistDicEntityPageInfo.getTotal() % WordsFixedProperty.DEFAULT_LOAD_PAGESIZE.getValue() == 0) {
                 pageCount = blocklistDicEntityPageInfo.getTotal() / WordsFixedProperty.DEFAULT_LOAD_PAGESIZE.getValue();
             } else {
                 pageCount = (blocklistDicEntityPageInfo.getTotal() / WordsFixedProperty.DEFAULT_LOAD_PAGESIZE.getValue()) + 1;
             }
             if (pageCount > 1) {
-                for (long pageIndex = blocklistDicEntityPageInfo.getCurrent(); pageIndex <= pageCount; pageIndex++) {
+                long beginIndex = blocklistDicEntityPageInfo.getCurrent() + 1;
+                for (long pageIndex = beginIndex; pageIndex <= pageCount; pageIndex++) {
                     blocklistDicEntityPageInfo.setPageNo(pageIndex);
-                    blocklistDicEntityPageInfo.setCurrent(pageIndex);
-                    blocklistDicEntityPageInfo = blocklistDicService.loadBlocklistDicForPage(parameter);
+                    blocklistDicEntityPageInfo = blocklistDicService.loadBlocklistDicForPage(blocklistDicEntityPageInfo, parameter);
                     totleSize += addWordDataToMem(blocklistDicEntityPageInfo, cate);
                 }
             }
